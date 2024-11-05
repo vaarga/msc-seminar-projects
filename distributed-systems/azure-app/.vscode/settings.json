@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c0e75537-6a99-4642-bc67-4ff57da430d2/AppServices/subscriptions/c0e75537-6a99-4642-bc67-4ff57da430d2/resourceGroups/rock-paper-scissors/providers/Microsoft.Web/sites/rock-paper-scissors-game",
+    "appService.deploySubpath": "bin/Debug/net6.0"
+}

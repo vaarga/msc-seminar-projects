@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Rock Paper Scissors Game";
+}
+<div id="score-container">
+    <h1>Your score: <span id="users-score">0</span></h1>
+    <h1>Computer's score: <span id="computers-score">0</span></h1>
+</div>
+<hr />
+<h1>Your choice:</h1>
+<div id="images-container">
+    <img id="rock" class="choice selected" src="https://images.pexels.com/photos/2363901/pexels-photo-2363901.jpeg?auto=compress&cs=tinysrgb&w=300" alt="rock" width="300" height="200" onclick="selectChoice('rock')"/>
+    <img id="paper" class="choice" src="https://images.pexels.com/photos/2575363/pexels-photo-2575363.jpeg?auto=compress&cs=tinysrgb&w=300" alt="paper" width="300" height="200" onclick="selectChoice('paper')"/>
+    <img id="scissors" class="choice" src="https://images.pexels.com/photos/4226901/pexels-photo-4226901.jpeg?auto=compress&cs=tinysrgb&w=300" alt="scissors" width="300" height="200" onclick="selectChoice('scissors')"/>
+</div>
+<button id="submit-button"onclick="submitChoice()">Submit your choice</button>
+<h1 id="computers-choice-text" class="hidden">The computer's choice:</h1>
+<img id="computers-choice" class="hidden" src="" alt="" width="300" height="200" />
+<h1 id="message" class="hidden"></h1>

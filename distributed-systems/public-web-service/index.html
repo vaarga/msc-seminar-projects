@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client application for a public web service</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <label for="ip-input">IP Address:</label>
+        <input
+            id="ip-input"
+            type="text"
+            pattern="^(([0-9a-fA-F]{1}|[1-9a-fA-F]{1}[0-9a-fA-F]{1,3}):){7}([0-9a-fA-F]{1}|[1-9a-fA-F]{1}[0-9a-fA-F]{1,3})$"
+            placeholder="79.119.54.64"
+        >
+        <p id="error-message"></p>
+        <p>Some IP address examples:</p>
+        <p>79.119.54.64</p>
+        <p>2001:4860:4860::8888</p>
+        <p>31.13.63.23</p>
+        <button id="get-info-button" onclick="getInfoAboutIP();">
+            Get information about the IP address
+        </button>
+        <p>Organization (domain):<p><p id="organization" class="info"> - </p>
+        <p>Country (flag) and city:<p><p id="country" class="info"> - </p>
+        <p>Currency (symbol):<p><p id="currency" class="info"> - </p>
+        <p>Time (time zone name):<p><p id="time" class="info"> - </p>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-content: center;
+            align-items: center;
+        }
+
+        #score-container {
+            text-align: center;
+        }
+
+        hr {
+            border: 0;
+            width: 90%;
+            background-color: black;
+            height: 1px;
+        }
+
+        #images-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .selected {
+            -webkit-box-shadow: 0px 0px 10px 5px #0060FF; 
+            box-shadow: 0px 0px 10px 5px #0060FF;
+        }
+
+        .choice {
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        #submit-button {
+            all: unset;
+            cursor: pointer;
+            border: 1px solid black;
+            padding: 8px;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+        #submit-button:hover {
+            -webkit-box-shadow: 0px 0px 10px 5px #414141; 
+            box-shadow: 0px 0px 10px 5px #414141;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #computers-choice {
+            border-radius: 10px;
+        }
+
+        .won {
+            color: green;
+            text-shadow: 0px 0px 3px green;
+        }
+
+        .lost {
+            color: firebrick;
+            text-shadow: 0px 0px 3px firebrick;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <script>
+        const usersScoreContainer = document.getElementById('users-score');
+        const computersScoreContainer = document.getElementById('computers-score');
+        const rockContainer = document.getElementById('rock');
+        const paperContainer = document.getElementById('paper');
+        const scissorsContainer = document.getElementById('scissors');
+        const computersChoiceTextContainer = document.getElementById('computers-choice-text');
+        const computersChoiceContainer = document.getElementById('computers-choice');
+        const messageContainer = document.getElementById('message');
+
+        let usersScore = 0;
+        let computersScore = 0;
+        let usersChoice = 0;
+        let computersChoice = 0;
+        let noGame = 1;
+
+        choices = [
+            {
+                src: "https://images.pexels.com/photos/2363901/pexels-photo-2363901.jpeg?auto=compress&cs=tinysrgb&w=300",
+                alt: "rock",
+            },
+            {
+                src: "https://images.pexels.com/photos/2575363/pexels-photo-2575363.jpeg?auto=compress&cs=tinysrgb&w=300",
+                alt: "paper",
+            },
+            {
+                src: "https://images.pexels.com/photos/4226901/pexels-photo-4226901.jpeg?auto=compress&cs=tinysrgb&w=300",
+                alt: "scissors",
+            }
+        ];
+
+        function selectChoice(choice) {
+            switch(choice) {
+                case "rock":
+                    usersChoice = 0;
+                    break;
+
+                case "paper":
+                    usersChoice = 1;
+                    break;
+
+                case "scissors":
+                    usersChoice = 2;
+                    break;
+            }
+
+            rockContainer.classList.remove("selected");
+            paperContainer.classList.remove("selected");
+            scissorsContainer.classList.remove("selected");
+
+            document.getElementById(choice).classList.add("selected");
+        }
+
+        function getComputersChoice() {
+            return Math.floor(Math.random() * 3);
+        }
+
+        function submitChoice() {
+            computersChoiceTextContainer.classList.remove("hidden");
+            computersChoiceContainer.classList.remove("hidden");
+            messageContainer.classList.remove("hidden");
+
+            computersChoice = getComputersChoice();
+            computersChoiceContainer.setAttribute("src", choices[computersChoice]["src"]);
+            computersChoiceContainer.setAttribute("alt", choices[computersChoice]["alt"]);
+
+            // 0 = computer won
+            // 1 = user won
+            // 2 = drawn game
+            let userWon = 0;
+
+            switch(usersChoice) {
+                case 0:
+                    switch(computersChoice) {
+                        case 0:
+                            userWon = 2;
+                            break;
+
+                        case 1:
+                            userWon = 0;
+                            break;
+
+                        case 2:
+                            userWon = 1;
+                            break;
+                    }
+                    break;
+
+                case 1:
+                    switch(computersChoice) {
+                        case 0:
+                            userWon = 1;
+                            break;
+
+                        case 1:
+                            userWon = 2;
+                            break;
+
+                        case 2:
+                            userWon = 0;
+                            break;
+                    }
+                    break;
+
+                case 2:
+                    switch(computersChoice) {
+                        case 0:
+                            userWon = 0;
+                            break;
+
+                        case 1:
+                            userWon = 1;
+                            break;
+
+                        case 2:
+                            userWon = 2;
+                            break;
+                    }
+                    break;
+            }
+
+            let message = "Drawn game!";
+            messageContainer.classList.remove('won');
+            messageContainer.classList.remove('lost');
+
+            switch(userWon) {
+                case 0:
+                    message = "The computer won!";
+                    messageContainer.classList.add('lost');
+                    computersScore++;
+                    computersScoreContainer.innerHTML = computersScore;
+                    break;
+
+                case 1:
+                    message = "You won!";
+                    messageContainer.classList.add('won');
+                    usersScore++;
+                    usersScoreContainer.innerHTML = usersScore;
+                    break;
+            }
+
+            messageContainer.innerHTML = message;
+        }
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
