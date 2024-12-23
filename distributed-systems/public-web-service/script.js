@@ -10,6 +10,8 @@ ipInput.addEventListener("keypress", (event) => {
 
 const getInfoAboutIP = () => {
     const IP = ipInput.value.trim();
+    // Insert your Ipregistry key
+    const key = '';
     const errorMessage = document.getElementById('error-message');
     const organization = document.getElementById('organization');
     const country = document.getElementById('country');
@@ -21,7 +23,7 @@ const getInfoAboutIP = () => {
     } else {
         errorMessage.textContent = '';
 
-        fetch(`https://api.ipregistry.co/${IP}?key=etlpg2ejm6xigtq0&fields=connection,location,currency,time_zone`)
+        fetch(`https://api.ipregistry.co/${IP}?key=${key}&fields=connection,location,currency,time_zone`)
             .then((response) => {
                 return response.json();
             })
